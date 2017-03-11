@@ -33,15 +33,19 @@ logger.addHandler(ch)
 
 def load_cues(filename, error_on_missing_track=False, default_track=os.path.join(my_path, 'noises','default_track.mp3')):
     cues = []
-    with open(filename, 'r') as cues_csv:
+    with open(os.path.join(my_path, filename), 'r') as cues_csv:
         dr = DictReader(cues_csv)
         for d in dr:
-            if 'track' not in d.keys() or d['track'] is None or len(d['track'].strip()) == 0 or not os.path.isfile(filename): #TODO: add nonexistence check
+            if 'track' not in d.keys() or d['track'] is None or len(d['track'].strip()) == 0 or not os.path.isfile(os.path.join(my_path, filename)):
                 if not error_on_missing_track:
                     logger.warn('No file found for sketch {}, cue {}, track {}'.format(d['sketch'], d['cue'], d['track']))
                     d['track'] = default_track
                 else:
                     raise ValueError('no track for sketch {} and cue {}'.format(d['sketch'], d['cue']))
+            else:
+                #this is getting wonky.
+                #TODO: standardize file loading so that we consistently load from my_path/...
+                d['track'] = os.path.join(my_path, 'noises', d['track'])
             cues.append(d)
     return cues
 
