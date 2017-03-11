@@ -30,21 +30,23 @@ ch.setFormatter(formatter)
 logger.addHandler(fh)
 logger.addHandler(ch)
 
-#our stuff
-import noises
 
 def load_cues(filename, error_on_missing_track=False, default_track=os.path.join(my_path, 'noises','default_track.mp3')):
     cues = []
     with open(filename, 'r') as cues_csv:
         dr = DictReader(cues_csv)
         for d in dr:
-            if 'track' not in d.keys() or d['track'] is None or len(d['track'].strip()) == 0: #TODO: add nonexistence check
+            if 'track' not in d.keys() or d['track'] is None or len(d['track'].strip()) == 0 or not os.path.isfile(filename): #TODO: add nonexistence check
                 if not error_on_missing_track:
+                    logger.warn('No file found for sketch {}, cue {}, track {}'.format(d['sketch'], d['cue'], d['track']))
                     d['track'] = default_track
                 else:
                     raise ValueError('no track for sketch {} and cue {}'.format(d['sketch'], d['cue']))
             cues.append(d)
     return cues
+
+#our stuff
+import noises
                 
 def my_global_function():
     logger.info("in my_global_function")
