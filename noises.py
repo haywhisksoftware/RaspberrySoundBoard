@@ -8,17 +8,19 @@ import time
 
 logger = logging.getLogger("RaspberrySoundBoard.noises")
 #remove these when integrated
-logger.setLevel(logging.DEBUG)
-ch = logging.StreamHandler()
-ch.setLevel(logging.DEBUG)
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-ch.setFormatter(formatter)
-logger.addHandler(ch)
+#logger.setLevel(logging.DEBUG)
+#ch = logging.StreamHandler()
+#ch.setLevel(logging.DEBUG)
+#formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+#ch.setFormatter(formatter)
+#logger.addHandler(ch)
 
 active_noise = None
 #configuration
 initial_volume = 40
-time_to_fade = 1.5
+time_to_fade = 0.5
+#maybe have a variable fade, based on the position of the track in the sketch?
+#time_to_fade = 1.5
 fade_out_steps = 10
 seconds_per_fade_step = time_to_fade / fade_out_steps
 volume_steps_per_fade = initial_volume / fade_out_steps
@@ -65,6 +67,7 @@ def play_from_path(path):
     global active_noise
     path_to_open = path
     set_volume(initial_volume)
+    logger.info("About to play {}".format(os.path.basename(path_to_open)))
     active_noise = Popen([media_player, path_to_open])
     if active_noise is None:
         logger.warn("got none back from Popen")
