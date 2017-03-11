@@ -40,6 +40,7 @@ logger.info("Media player is " + media_player)
 def volume_osx(new_volume):
     subprocess.call(['osascript', '-e', "set volume output volume " + str(new_volume)])
 def volume_rpi(new_volume):
+    modded_volume = (new_volume / 2.0) + 50
     subprocess.call(['amixer', 'cset', '-q', 'numid=1', str(new_volume)])
 
 
@@ -67,7 +68,7 @@ def play_from_path(path):
     global active_noise
     path_to_open = path
     set_volume(initial_volume)
-    logger.info("About to play {}".format(os.path.basename(path_to_open)))
+    logger.info("About to play {}".format(path_to_open))
     active_noise = Popen([media_player, path_to_open])
     if active_noise is None:
         logger.warn("got none back from Popen")
