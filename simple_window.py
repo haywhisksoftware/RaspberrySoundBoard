@@ -21,7 +21,7 @@ fh = logging.FileHandler(os.path.join(my_path, 'swt.log'))
 fh.setLevel(logging.DEBUG)
 # create console handler with a higher log level
 ch = logging.StreamHandler()
-ch.setLevel(logging.ERROR)
+ch.setLevel(logging.INFO)
 # create formatter and add it to the handlers
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 fh.setFormatter(formatter)
@@ -69,23 +69,32 @@ class SimpleButtonTest(QWidget):
 
     def initUI(self):
         play_button = QPushButton('Play next cue', self)
-        play_button.resize(100, 50)
-        play_button.move(window_width-105, 0)
+        play_button.resize(125, 50)
+        play_button.move(window_width-130, 0)
         play_button.clicked.connect(lambda: self.start_noise())
 
         stop_button = QPushButton('Stop!', self)
-        stop_button.resize(50, 50)
-        stop_button.move(window_width-50, window_height-50)
+        stop_button.resize(55, 50)
+        stop_button.move(window_width-55, window_height-50)
         stop_button.clicked.connect(lambda: self.stop_noise())
 
         now_playing = QTextEdit(self)
         now_playing.setReadOnly(True)
         now_playing.resize(125, 25)
-        now_playing.move(window_width-125, window_height-150)
+        now_playing.move(window_width-125, window_height-125)
         up_next = QTextEdit(self)
         up_next.setReadOnly(True)
         up_next.resize(125, 25)
-        up_next.move(window_width-125, window_height-100)
+        up_next.move(window_width-125, window_height-75)
+
+        prev_button = QPushButton('^', self)
+        prev_button.resize(25, 25)
+        prev_button.move(window_width - 125, window_height - 175)
+        prev_button.clicked.connect(self.prev_cue)
+        next_button = QPushButton('V', self)
+        next_button.resize(25, 25)
+        next_button.move(window_width - 75, window_height - 175)
+        next_button.clicked.connect(self.next_cue)
 
         sound_list = QListWidget(self)
         for i in noises_to_play:
@@ -107,6 +116,20 @@ class SimpleButtonTest(QWidget):
 
     def play_noise(self, filename):
         noises.play_from_path(os.path.join(my_path, filename))
+
+    def prev_cue(self):
+        self.queued_index -= 1
+        if self.queued_index < 0:
+            self.queued_index = len(noises_to_play)-1
+        self.sound_list.setCurrentRow(self.queued_index)
+        self.up_next.setText(noises_to_play[self.queued_index]['cue'])
+
+    def next_cue(self):
+        self.queued_index += 1
+        if self.queued_index >= len(noises_to_play):
+            self.queued_index = 0
+        self.sound_list.setCurrentRow(self.queued_index)
+        self.up_next.setText(noises_to_play[self.queued_index]['cue'])
 
     def start_noise(self):
         self.stop_noise()
