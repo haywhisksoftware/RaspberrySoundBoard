@@ -61,7 +61,7 @@ def global_stop_function():
     noises.stop()
 
 window_width = 320
-window_height = 230
+window_height = 215
 
 noises_to_play = load_cues('cue_list.csv')
     
@@ -74,11 +74,11 @@ class SimpleButtonTest(QWidget):
     def initUI(self):
         play_button = QPushButton('Play next cue', self)
         play_button.resize(125, 50)
-        play_button.move(window_width-130, 0)
+        play_button.move(window_width-125, 0)
         play_button.clicked.connect(lambda: self.start_noise())
 
         stop_button = QPushButton('Stop!', self)
-        stop_button.resize(55, 50)
+        stop_button.resize(65, 50)
         stop_button.move(window_width-55, window_height-50)
         stop_button.clicked.connect(lambda: self.stop_noise())
 
@@ -92,12 +92,12 @@ class SimpleButtonTest(QWidget):
         up_next.move(window_width-125, window_height-75)
 
         prev_button = QPushButton('^', self)
-        prev_button.resize(25, 25)
-        prev_button.move(window_width - 125, window_height - 175)
+        prev_button.resize(35, 35)
+        prev_button.move(window_width - 135, window_height - 165)
         prev_button.clicked.connect(self.prev_cue)
         next_button = QPushButton('V', self)
-        next_button.resize(25, 25)
-        next_button.move(window_width - 75, window_height - 175)
+        next_button.resize(35, 35)
+        next_button.move(window_width - 75, window_height - 165)
         next_button.clicked.connect(self.next_cue)
 
         sound_list = QListWidget(self)
