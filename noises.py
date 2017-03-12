@@ -18,9 +18,9 @@ logger = logging.getLogger("RaspberrySoundBoard.noises")
 active_noise = None
 #configuration
 initial_volume = 40
-time_to_fade = 0.5
+#time_to_fade = 0.5
 #maybe have a variable fade, based on the position of the track in the sketch?
-#time_to_fade = 1.5
+time_to_fade = 1.25
 fade_out_steps = 10
 seconds_per_fade_step = time_to_fade / fade_out_steps
 volume_steps_per_fade = initial_volume / fade_out_steps
@@ -41,7 +41,8 @@ def volume_osx(new_volume):
     subprocess.call(['osascript', '-e', "set volume output volume " + str(new_volume)])
 def volume_rpi(new_volume):
     modded_volume = (new_volume / 2.0) + 50
-    subprocess.call(['amixer', 'cset', '-q', 'numid=1', str(new_volume)])
+    logger.debug('setting volume from raw {} to modded {}'.format(new_volume, modded_volume))
+    subprocess.call(['amixer', 'cset', '-q', 'numid=1', str(modded_volume)+'%'])
 
 
 #compute what media player we will use
