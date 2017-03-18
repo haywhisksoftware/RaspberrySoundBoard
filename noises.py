@@ -58,8 +58,11 @@ if which_amixer == 0:
 logger.info("Our volume control is: {}".format(set_volume))
 
 
-def fade_out():
+def fade_out(fade_out_seconds=time_to_fade):
     current_volume = initial_volume
+    fade_out_steps = 10
+    seconds_per_fade_step = fade_out_seconds / fade_out_steps
+    volume_steps_per_fade = current_volume / fade_out_steps
     while current_volume >= 0:
         set_volume(current_volume)
         time.sleep(seconds_per_fade_step)
@@ -74,13 +77,15 @@ def play_from_path(path):
     if active_noise is None:
         logger.warn("got none back from Popen")
 
-def stop():
+def stop(seconds_to_fade_out=time_to_fade):
     logger.info("in stop")
+    if seconds_to_fade_out is None or seconds_to_fade_out == "":
+        seconds_to_fade_out = time_to_fade
     if not is_playing():
         logger.info("not playing")
         return
     if active_noise is not None:
-        fade_out()
+        fade_out(seconds_to_fade_out)
         logger.info("going to kill")
         active_noise.kill()
     logger.info("done")

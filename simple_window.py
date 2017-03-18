@@ -46,6 +46,10 @@ def load_cues(filename, error_on_missing_track=False, default_track=os.path.join
                 #this is getting wonky.
                 #TODO: standardize file loading so that we consistently load from my_path/...
                 d['track'] = os.path.join(my_path, 'noises', d['track'])
+            if d['fade_out_time'] is None or d['fade_out_time'] == "":
+                d['fade_out_time'] = None
+            else:
+                d['fade_out_time'] = float(d['fade_out_time'])
             cues.append(d)
     return cues
 
@@ -147,7 +151,10 @@ class SimpleButtonTest(QWidget):
 
     def stop_noise(self):
         self.now_playing.setText('')
-        noises.stop()
+        current_playing_index = self.queued_index - 1
+        if current_playing_index < 0:
+            current_playing_index = len(noises_to_play)-1
+        noises.stop(noises_to_play[current_playing_index]['fade_out_time'])
 
 def main():
     app = QApplication(sys.argv)
