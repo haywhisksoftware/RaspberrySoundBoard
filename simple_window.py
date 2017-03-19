@@ -9,7 +9,7 @@ import os.path
 import subprocess
 import sys
 #from PyQt4 import QtGui
-from PyQt5.QtWidgets import QApplication, QListWidget, QWidget, QPushButton, QTextEdit
+from PyQt5.QtWidgets import QApplication, QLabel, QListWidget, QWidget, QPushButton, QTextEdit
 
 
 my_path = module_locator.module_path()
@@ -77,8 +77,8 @@ class SimpleButtonTest(QWidget):
 
     def initUI(self):
         play_button = QPushButton('Play next cue', self)
-        play_button.resize(125, 50)
-        play_button.move(window_width-125, 0)
+        play_button.resize(135, 65)
+        play_button.move(window_width-135, 0)
         play_button.clicked.connect(lambda: self.start_noise())
 
         stop_button = QPushButton('Stop!', self)
@@ -86,22 +86,28 @@ class SimpleButtonTest(QWidget):
         stop_button.move(window_width-55, window_height-50)
         stop_button.clicked.connect(lambda: self.stop_noise())
 
+        now_playing_label = QLabel(self)
+        now_playing_label.setText("Now:")
+        now_playing_label.move(window_width-155, window_height-105)
         now_playing = QTextEdit(self)
         now_playing.setReadOnly(True)
         now_playing.resize(125, 25)
-        now_playing.move(window_width-125, window_height-125)
+        now_playing.move(window_width-125, window_height-105)
+        up_next_label = QLabel(self)
+        up_next_label.setText("Next:")
+        up_next_label.move(window_width-155, window_height-70)
         up_next = QTextEdit(self)
         up_next.setReadOnly(True)
         up_next.resize(125, 25)
-        up_next.move(window_width-125, window_height-75)
+        up_next.move(window_width-125, window_height-70)
 
         prev_button = QPushButton('^', self)
-        prev_button.resize(35, 35)
-        prev_button.move(window_width - 135, window_height - 165)
+        prev_button.resize(45, 45)
+        prev_button.move(window_width - 135, window_height - 150)
         prev_button.clicked.connect(self.prev_cue)
         next_button = QPushButton('V', self)
-        next_button.resize(35, 35)
-        next_button.move(window_width - 75, window_height - 165)
+        next_button.resize(45, 45)
+        next_button.move(window_width - 50, window_height - 150)
         next_button.clicked.connect(self.next_cue)
 
         sound_list = QListWidget(self)
