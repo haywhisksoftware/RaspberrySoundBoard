@@ -59,6 +59,7 @@ logger.info("Our volume control is: {}".format(set_volume))
 
 
 def fade_out(fade_out_seconds=time_to_fade):
+    logger.debug('fading out in {} seconds'.format(str(fade_out_seconds)))
     current_volume = initial_volume
     fade_out_steps = 10
     seconds_per_fade_step = fade_out_seconds / fade_out_steps
