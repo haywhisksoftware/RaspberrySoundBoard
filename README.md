@@ -1,14 +1,14 @@
-Raspberry Sound Board
+# Raspberry Sound Board
 
-A sound board for Raspberry Pi.
+## A sound board for Raspberry Pi.
 
 It plays noises.
 
-You'll need
+### You'll need
 1. pyqt5
 1. python3
 
-You'll need to configure your cue list thusly:
+### You'll need to configure your cue list thusly:
 1. make a CSV file named `cue_list.csv`
 1. give it these columns:
    1. sketch
@@ -20,7 +20,7 @@ You'll need to configure your cue list thusly:
    1. track  
       1. the filename relative to the `noises` directory
 
-You'll need to layout your directories thusly:
+### You'll need to layout your directories thusly:
 ```
 .
 + simple_window.py
@@ -34,7 +34,7 @@ You'll need to layout your directories thusly:
   + cue1.mp3
 ```
 
-Invoke it thusly:
+### Invoke it thusly:
 ```
 python3 simple_window.py
 ```
