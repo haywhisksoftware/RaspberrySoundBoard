@@ -5,20 +5,20 @@ A sound board for Raspberry Pi.
 It plays noises.
 
 You'll need
-# pyqt5
-# python3
+1. pyqt5
+1. python3
 
 You'll need to configure your cue list thusly:
-# make a CSV file named `cue_list.csv`
-# give it these columns:
-## sketch
-### the name of the scene or sketch the sound belongs to. Currently unsued.
-## cue
-### the thing that cues the sound (e.g, for a fart noise: "Gregg lifts his buttcheek")
-## fade_out_time
-### the length in seconds that it should take to stop playing the currently playing noise. Defaults to something configured in noises.py
-## track 
-### the filename relative to the `noises` directory
+1. make a CSV file named `cue_list.csv`
+1. give it these columns:
+   1. sketch
+      1. the name of the scene or sketch the sound belongs to. Currently unsued.
+   1. cue
+      1. the thing that cues the sound (e.g, for a fart noise: "Gregg lifts his buttcheek")
+   1. fade_out_time
+      1. the length in seconds that it should take to stop playing the currently playing noise. Defaults to something configured in noises.py
+   1. track  
+      1. the filename relative to the `noises` directory
 
 You'll need to layout your directories thusly:
 ```
@@ -32,4 +32,9 @@ You'll need to layout your directories thusly:
   + cue2.mp3
  \ sketch2
   + cue1.mp3
+```
+
+Invoke it thusly:
+```
+python3 simple_window.py
 ```
