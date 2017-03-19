@@ -7,6 +7,7 @@ It plays noises.
 ### You'll need
 1. pyqt5
 1. python3
+1. mpg123 (if running on Raspberry Pi) or afplay (if running on OS X)
 
 ### You'll need to configure your cue list thusly:
 1. make a CSV file named `cue_list.csv`
