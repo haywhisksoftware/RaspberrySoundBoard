@@ -8,8 +8,8 @@ import logging
 import os.path
 import subprocess
 import sys
-#from PyQt4 import QtGui
 from PyQt5.QtWidgets import QApplication, QLabel, QListWidget, QWidget, QPushButton, QTextEdit
+from PyQt5.QtCore import Qt
 
 
 my_path = module_locator.module_path()
@@ -126,7 +126,27 @@ class SimpleButtonTest(QWidget):
 
         self.setGeometry(0,0, window_width,window_height)
         self.setWindowTitle("Raspberry Sound Board")
+        self.setFocusPolicy(Qt.StrongFocus)
         self.show()
+
+    def keyPressEvent(self, event):
+        key = event.key()
+        if key == Qt.Key_Escape:
+            #don't exit
+            pass
+        elif key == Qt.Key_Down:
+            self.next_cue()
+        elif key == Qt.Key_Up:
+            self.prev_cue()
+        elif key == Qt.Key_Right:
+            self.start_noise()
+        elif key == Qt.Key_Left:
+            self.stop_noise()
+        elif key == Qt.Key_1:
+            self.next_cue()
+        else:
+            #super(QWidget, self).keyPressEvent(event)
+            pass
 
     def play_noise(self, filename):
         noises.play_from_path(os.path.join(my_path, filename))
