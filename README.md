@@ -9,6 +9,8 @@ Solution: this thing. A Raspberry Pi and a keyboard fit nicely at the sound desk
 1. pyqt5
 1. python3
 1. mpg123 (if running on Raspberry Pi) or afplay (if running on OS X)
+1. a screen for the Pi (I used an Adafruit PiTFT 320x240 touch screen, but prefer a keyboard for tactile feedback)
+1. a keyboard (optional)
 
 ### You'll need to configure your cue list thusly:
 1. make a CSV file named `cue_list.csv`
