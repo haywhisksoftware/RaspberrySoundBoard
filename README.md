@@ -2,7 +2,8 @@
 
 ## A sound board for Raspberry Pi.
 
-It plays noises.
+Problem: sketch comedy shows need sound effects. These sound effects are largely in a specific order. There isn't a lot of space for a full-sized laptop at the sound desk. 
+Solution: this thing. A Raspberry Pi and a keyboard fit nicely at the sound desk. This thing runs in OS X and Raspbian.
 
 ### You'll need
 1. pyqt5
@@ -39,3 +40,21 @@ It plays noises.
 ```
 python3 simple_window.py
 ```
+Note that probably the best way to do this is to have a shell script (located on your Pi's desktop) invoke this script.
+
+### Control it thusly:
+(Caveat: for keyboard controls, you may have to tap on empty space to de-focus a button, letting the main widget receive keyboard events.)
+1. Play next cue
+   1. plays the next cue, stopping the currently playing cue, if applicable.
+   1. Keyboard: right arrow
+1. ^
+   1. sets the next cue to the previous cue. 
+   1. Useful for re-playing a cue, or skipping around during rehearsal
+   1 Keyboard: up arrow
+1. V
+   1. sets the next cue to the following cue.
+   1. Useful for skipping ahead in the show, or skipping around during rehearsal
+   1. Keyboard: down arrow
+1. Stop!
+   1. stops playing the currently playing cue, fading out according to the currently playing cue's fade_out_time value
+   1. Keyboard: left arrow
