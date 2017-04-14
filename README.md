@@ -6,6 +6,10 @@ Problem: sketch comedy shows need sound effects. These sound effects are largely
 
 Solution: this thing. A Raspberry Pi and a keyboard fit nicely at the sound desk. This thing runs in OS X and Raspbian.
 
+## License
+
+MIT. It would be nice if you let me know if you use this code, or derivatives of this code, in a show.
+
 ### You'll need
 1. pyqt5
 1. python3
