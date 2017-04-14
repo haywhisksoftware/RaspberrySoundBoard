@@ -116,18 +116,23 @@ class RaspberrySoundBoard(QWidget):
         sound_list.resize(150, window_height)
         sound_list.move(0, 0)
 
-        self.queued_index = 0
+        self._queued_index = 0
 
-        up_next.setText(noises_to_play[self.queued_index]['cue'])
+        up_next.setText(self.get_queued_cue()['cue'])
 
         self.up_next = up_next
         self.now_playing = now_playing
         self.sound_list = sound_list
 
+        self._now_playing_cue = None
+
         self.setGeometry(0,0, window_width,window_height)
         self.setWindowTitle("Raspberry Sound Board")
         self.setFocusPolicy(Qt.StrongFocus)
         self.show()
+
+    def get_queued_cue(self):
+        return noises_to_play[self._queued_index]
 
     def keyPressEvent(self, event):
         key = event.key()
@@ -148,39 +153,36 @@ class RaspberrySoundBoard(QWidget):
             #super(QWidget, self).keyPressEvent(event)
             pass
 
-    def play_noise(self, filename):
-        noises.play_from_path(os.path.join(my_path, filename))
+    def play_noise(self, cue):
+        noises.play_from_path(os.path.join(my_path, cue['track']))
+        self._now_playing_cue = cue
 
     def prev_cue(self):
-        self.queued_index -= 1
-        if self.queued_index < 0:
-            self.queued_index = len(noises_to_play)-1
-        self.sound_list.setCurrentRow(self.queued_index)
-        self.up_next.setText(noises_to_play[self.queued_index]['cue'])
+        self._queued_index -= 1
+        if self._queued_index < 0:
+            self._queued_index = len(noises_to_play)-1
+        self.sound_list.setCurrentRow(self._queued_index)
+        self.up_next.setText(noises_to_play[self._queued_index]['cue'])
 
     def next_cue(self):
-        self.queued_index += 1
-        if self.queued_index >= len(noises_to_play):
-            self.queued_index = 0
-        self.sound_list.setCurrentRow(self.queued_index)
-        self.up_next.setText(noises_to_play[self.queued_index]['cue'])
+        self._queued_index += 1
+        if self._queued_index >= len(noises_to_play):
+            self._queued_index = 0
+        self.sound_list.setCurrentRow(self._queued_index)
+        self.up_next.setText(noises_to_play[self._queued_index]['cue'])
 
     def start_noise(self):
         self.stop_noise()
-        self.now_playing.setText(noises_to_play[self.queued_index]['cue'])
-        noises.play_from_path(os.path.join("noises", noises_to_play[self.queued_index]['track']))
-        self.sound_list.setCurrentRow(self.queued_index)
-        self.queued_index += 1
-        if self.queued_index >= len(noises_to_play):
-            self.queued_index = 0
-        self.up_next.setText(noises_to_play[self.queued_index]['cue'])
+        now_playing_cue = self.get_queued_cue()
+        self.now_playing.setText(now_playing_cue['cue'])
+        self.play_noise(now_playing_cue)
+        self.sound_list.setCurrentRow(self._queued_index)
+        self.next_cue()
 
     def stop_noise(self):
         self.now_playing.setText('')
-        current_playing_index = self.queued_index - 1
-        if current_playing_index < 0:
-            current_playing_index = len(noises_to_play)-1
-        noises.stop(noises_to_play[current_playing_index]['fade_out_time'])
+        if self._now_playing_cue is not None:
+            noises.stop(self._now_playing_cue['fade_out_time'])
 
 def main():
     app = QApplication(sys.argv)
