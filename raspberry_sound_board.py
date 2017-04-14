@@ -69,9 +69,9 @@ window_height = 215
 
 noises_to_play = load_cues('cue_list.csv')
     
-class SimpleButtonTest(QWidget):
+class RaspberrySoundBoard(QWidget):
     def __init__(self):
-        super(SimpleButtonTest, self).__init__()
+        super(RaspberrySoundBoard, self).__init__()
 
         self.initUI()
 
@@ -184,7 +184,7 @@ class SimpleButtonTest(QWidget):
 
 def main():
     app = QApplication(sys.argv)
-    sbt = SimpleButtonTest()
+    rsb = RaspberrySoundBoard()
 
     sys.exit(app.exec_())
 
