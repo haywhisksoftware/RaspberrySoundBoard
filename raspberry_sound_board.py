@@ -56,14 +56,6 @@ def load_cues(filename, error_on_missing_track=False, default_track=os.path.join
 #our stuff
 import noises
                 
-def my_global_function():
-    logger.info("in my_global_function")
-    path_to_open = os.path.join(my_path, "introduction_Dun-dun-dun-sound-effect-brass.mp3")
-    noises.play_from_path(path_to_open)
-
-def global_stop_function():
-    noises.stop()
-
 window_width = 320
 window_height = 215
 
