@@ -79,7 +79,9 @@ def play_from_path(path):
         logger.warn("got none back from Popen")
 
 def stop(seconds_to_fade_out=time_to_fade):
-    logger.info("in stop")
+    if seconds_to_fade_out is None:
+        seconds_to_fade_out = time_to_fade
+    logger.info("in stop, seconds_to_fade_out=%d" % seconds_to_fade_out)
     if seconds_to_fade_out is None or seconds_to_fade_out == "":
         seconds_to_fade_out = time_to_fade
     if not is_playing():

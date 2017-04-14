@@ -3,6 +3,7 @@
 ## A sound board for Raspberry Pi.
 
 Problem: sketch comedy shows need sound effects. These sound effects are largely in a specific order. There isn't a lot of space for a full-sized laptop at the sound desk. 
+
 Solution: this thing. A Raspberry Pi and a keyboard fit nicely at the sound desk. This thing runs in OS X and Raspbian.
 
 ### You'll need
@@ -16,7 +17,7 @@ Solution: this thing. A Raspberry Pi and a keyboard fit nicely at the sound desk
 1. make a CSV file named `cue_list.csv`
 1. give it these columns:
    1. sketch
-      1. the name of the scene or sketch the sound belongs to. Currently unsued.
+      1. the name of the scene or sketch the sound belongs to. Currently unused.
    1. cue
       1. the thing that cues the sound (e.g, for a fart noise: "Gregg lifts his buttcheek")
    1. fade_out_time
@@ -27,20 +28,20 @@ Solution: this thing. A Raspberry Pi and a keyboard fit nicely at the sound desk
 ### You'll need to layout your directories thusly:
 ```
 .
-+ simple_window.py
++ raspberry_sound_board.py
 + noises.py
 + ...other scripts...
-\ noises
- \ sketch_1
-  + cue1.mp3
-  + cue2.mp3
- \ sketch2
-  + cue1.mp3
++-- noises
+|   +-- sketch_1
+|   |   +-- cue1.mp3
+|   |   +-- cue2.mp3
+|   +-- sketch2
+|   |   +-- cue1.mp3
 ```
 
 ### Invoke it thusly:
 ```
-python3 simple_window.py
+python3 raspberry_sound_board.py
 ```
 Note that probably the best way to do this is to have a shell script (located on your Pi's desktop) invoke this script.
 
