@@ -10,14 +10,16 @@ Solution: this thing. A Raspberry Pi and a keyboard fit nicely at the sound desk
 
 MIT. It would be nice if you let me know if you use this code, or derivatives of this code, in a show.
 
-### You'll need
+## Prerequisites
 1. pyqt5
 1. python3
 1. mpg123 (if running on Raspberry Pi) or afplay (if running on OS X)
 1. a screen for the Pi (I used an Adafruit PiTFT 320x240 touch screen, but prefer a keyboard for tactile feedback)
 1. a keyboard (optional)
 
-### You'll need to configure your cue list thusly:
+## Configuration and use
+
+### Configure your cue list thusly:
 1. make a CSV file named `cue_list.csv`
 1. give it these columns:
    1. sketch
@@ -29,11 +31,12 @@ MIT. It would be nice if you let me know if you use this code, or derivatives of
    1. track  
       1. the filename relative to the `noises` directory
 
-### You'll need to layout your directories thusly:
+### Organize your directories thusly:
 ```
 .
 + raspberry_sound_board.py
 + noises.py
++ cue_list.csv
 + ...other scripts...
 +-- noises
 |   +-- sketch_1
@@ -57,7 +60,7 @@ Note that probably the best way to do this is to have a shell script (located on
 1. ^
    1. sets the next cue to the previous cue. 
    1. Useful for re-playing a cue, or skipping around during rehearsal
-   1 Keyboard: up arrow
+   1. Keyboard: up arrow
 1. V
    1. sets the next cue to the following cue.
    1. Useful for skipping ahead in the show, or skipping around during rehearsal
